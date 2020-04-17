@@ -1,0 +1,10 @@
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\bin\Debug\Java to C++ Convertor.exe.config
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\bin\Debug\Java to C++ Convertor.exe
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\bin\Debug\Java to C++ Convertor.pdb
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java to C++ Convertor.csprojAssemblyReference.cache
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java_to_C___Convertor.Form1.resources
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java_to_C___Convertor.Properties.Resources.resources
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java to C++ Convertor.csproj.GenerateResource.cache
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java to C++ Convertor.csproj.CoreCompileInputs.cache
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java to C++ Convertor.exe
+E:\Term 8\Java to C++ Convertor\Java to C++ Convertor\obj\Debug\Java to C++ Convertor.pdb
