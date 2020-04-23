@@ -9,11 +9,11 @@ namespace Java_to_C___Convertor
     class Convert
     {
         public string a;
-        public string output ="";
+        public string output = "";
         public string errorrs = "";
-        public Convert() {  }
-        List<string> cKeyWords =new List<string> {"int","string","bool","float","double","char"
-            ,"while","if","else","for","do","switch","case","cout","cin","\n"};
+        public Convert() { }
+        List<string> cKeyWords = new List<string> {"int","string","bool","float","double","char"
+            ,"while","if","else","for","do","switch","case","cout","cin","\n","}","{"};
 
         List<string> jKeyWords = new List<string> {"int","String","boolean","float","double","char"
             ,"while","if","else","for","do","switch","case","System.out.print","Scanner(System.in)" };
@@ -30,7 +30,7 @@ namespace Java_to_C___Convertor
             int x = 0;
             string v = a;
             char[] ch = v.ToCharArray();
-            foreach(char c in ch)
+            foreach (char c in ch)
             {
                 if (!alphabet.Contains(c))
                 {
@@ -38,7 +38,8 @@ namespace Java_to_C___Convertor
                     x++;
                 }
             }
-            if (x > 0) {
+            if (x > 0)
+            {
                 errorrs = error;
                 return false;
             }
@@ -47,87 +48,117 @@ namespace Java_to_C___Convertor
 
         public bool SyntaxError()
         {
-            string error="Syntax Error: ";
+            string error = "Syntax Error: ";
             int x = 0;
             char[] delims = new[] { '\n' };
             string[] strings = a.Split(delims, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string  s in strings)
+            foreach (string s in strings)
             {
                 string ss = s;
                 ss = ss.Replace("\n", String.Empty);
                 ss = ss.Replace("\r", String.Empty);
                 ss = ss.Replace("\t", String.Empty);
-                char[] delims2 = new[] { ' ', '>', '<', '+', '-', '/', '*' ,'\n'};
+                char[] delims2 = new[] { ' ', '\n' };
                 string[] strings2 = ss.Split(delims2, StringSplitOptions.RemoveEmptyEntries);
-
-                if ((!ss.EndsWith(";\n") && !ss.EndsWith(";")) || !cKeyWords.Contains(strings2[0]))
+                if (strings2.Length > 0)
                 {
-                    error = error + "Error in " + ss + "\n";
-                    x++;
-                }
-                else
-                {
-
-                    if (cKeyWords[0] == strings2[0] || cKeyWords[3] == strings2[0] || cKeyWords[4] == strings2[0])
+                    if (!(cKeyWords[6] == strings2[0] || cKeyWords[7] == strings2[0] || cKeyWords[8] == strings2[0] ||
+                    cKeyWords[9] == strings2[0] || cKeyWords[10] == strings2[0] || cKeyWords[10] == strings2[0]
+                    || cKeyWords[16] == strings2[0] || cKeyWords[17] == strings2[0])
+                        && ((!ss.EndsWith(";\n") && !ss.EndsWith(";")) || !cKeyWords.Contains(strings2[0])))
                     {
-                        if (ss.Contains("="))
+
+                        error = error + "Error in " + ss + "\n";
+                        x++;
+
+                    }
+                    else
+                    {
+
+                        if (cKeyWords[0] == strings2[0] || cKeyWords[3] == strings2[0] || cKeyWords[4] == strings2[0])
                         {
-                            string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
-                                    .Replace(";", String.Empty);
-                            try
+                            if (ss.Contains("="))
                             {
-                                var Value = int.Parse(newS);
-                                strings2[0] = jKeyWords[0];
-                                foreach (string str in strings2)
-                                {
-                                    output = output + str + " ";
-                                }
-                                output = output+ "@";
-                                output = output.Replace("@", System.Environment.NewLine);
-                            }
-                            catch (Exception e)
-                            {
+                                string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
+                                        .Replace(";", String.Empty);
                                 try
                                 {
-                                    if (cKeyWords[3] == strings2[0] || cKeyWords[4] == strings2[0])
+                                    var Value = int.Parse(newS);
+                                    strings2[0] = jKeyWords[0];
+                                    foreach (string str in strings2)
                                     {
-                                        var Value = float.Parse(newS);
-                                        if(cKeyWords[3] == strings2[0])
-                                        strings2[0] = jKeyWords[3];
-                                        else if(cKeyWords[4] == strings2[0])
-                                        {
-                                            strings2[0] = jKeyWords[4];
-                                        }
-                                        foreach (string str in strings2)
-                                        {
-                                            output = output + str + " ";
-                                        }
-                                        output = output + "@";
-                                        output = output.Replace("@", System.Environment.NewLine);
+                                        output = output + str + " ";
                                     }
-                                    else
+                                    output = output + "@";
+                                    output = output.Replace("@", System.Environment.NewLine);
+                                }
+                                catch (Exception e)
+                                {
+                                    try
+                                    {
+                                        if (cKeyWords[3] == strings2[0] || cKeyWords[4] == strings2[0])
+                                        {
+                                            var Value = float.Parse(newS);
+                                            if (cKeyWords[3] == strings2[0])
+                                                strings2[0] = jKeyWords[3];
+                                            else if (cKeyWords[4] == strings2[0])
+                                            {
+                                                strings2[0] = jKeyWords[4];
+                                            }
+                                            foreach (string str in strings2)
+                                            {
+                                                output = output + str + " ";
+                                            }
+                                            output = output + "@";
+                                            output = output.Replace("@", System.Environment.NewLine);
+                                        }
+                                        else
+                                        {
+                                            error = "Type error in the line " + s;
+                                            x++;
+                                        }
+                                    }
+                                    catch (Exception ee)
                                     {
                                         error = "Type error in the line " + s;
                                         x++;
                                     }
                                 }
-                                catch (Exception ee)
+                            }
+                            else
+                            {
+                                foreach (string str in strings2)
+                                {
+                                    output = output + str + " ";
+                                }
+                                output = output + "@";
+                                output = output.Replace("@", System.Environment.NewLine);
+                            }
+                        }
+                        else if (cKeyWords[1] == strings2[0])
+                        {
+                            if (ss.Contains("="))
+                            {
+                                string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
+                                        .Replace(";", String.Empty);
+                                if (newS.StartsWith("\"") && newS.EndsWith("\""))
+                                {
+                                    strings2[0] = jKeyWords[1];
+                                    foreach (string str in strings2)
+                                    {
+                                        output = output + str + " ";
+                                    }
+                                    output = output + "@";
+                                    output = output.Replace("@", System.Environment.NewLine);
+                                }
+                                else
                                 {
                                     error = "Type error in the line " + s;
                                     x++;
                                 }
                             }
-                        }
-                    }
-                    else if (cKeyWords[1] == strings2[0])
-                    {
-                        if (ss.Contains("="))
-                        {
-                            string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
-                                    .Replace(";", String.Empty);
-                            if (newS.StartsWith("\"") && newS.EndsWith("\""))
+                            else
                             {
-                                strings2[0] = jKeyWords[1];
                                 foreach (string str in strings2)
                                 {
                                     output = output + str + " ";
@@ -135,22 +166,31 @@ namespace Java_to_C___Convertor
                                 output = output + "@";
                                 output = output.Replace("@", System.Environment.NewLine);
                             }
+                        }
+                        else if (cKeyWords[5] == strings2[0])
+                        {
+                            if (ss.Contains("="))
+                            {
+                                string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
+                                        .Replace(";", String.Empty);
+                                if (newS.StartsWith("\'") && newS.EndsWith("\'"))
+                                {
+                                    strings2[0] = jKeyWords[5];
+                                    foreach (string str in strings2)
+                                    {
+                                        output = output + str + " ";
+                                    }
+                                    output = output + "@";
+                                    output = output.Replace("@", System.Environment.NewLine);
+                                }
+                                else
+                                {
+                                    error = "Type error in the line " + s;
+                                    x++;
+                                }
+                            }
                             else
                             {
-                                error = "Type error in the line " + s;
-                                x++;
-                            }
-                        }
-                    }
-                    else if (cKeyWords[5] == strings2[0])
-                    {
-                        if (ss.Contains("="))
-                        {
-                            string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
-                                    .Replace(";", String.Empty);
-                            if (newS.StartsWith("\'") && newS.EndsWith("\'"))
-                            {
-                                strings2[0] = jKeyWords[5];
                                 foreach (string str in strings2)
                                 {
                                     output = output + str + " ";
@@ -158,22 +198,31 @@ namespace Java_to_C___Convertor
                                 output = output + "@";
                                 output = output.Replace("@", System.Environment.NewLine);
                             }
+                        }
+                        else if (cKeyWords[2] == strings2[0])
+                        {
+                            if (ss.Contains("="))
+                            {
+                                string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
+                                        .Replace(";", String.Empty);
+                                if (newS == "true" || newS == "false")
+                                {
+                                    strings2[0] = jKeyWords[2];
+                                    foreach (string str in strings2)
+                                    {
+                                        output = output + str + " ";
+                                    }
+                                    output = output + "@";
+                                    output = output.Replace("@", System.Environment.NewLine);
+                                }
+                                else
+                                {
+                                    error = "Type error in the line " + s;
+                                    x++;
+                                }
+                            }
                             else
                             {
-                                error = "Type error in the line " + s;
-                                x++;
-                            }
-                        }
-                    }
-                    else if (cKeyWords[2] == strings2[0])
-                    {
-                        if (ss.Contains("="))
-                        {
-                            string newS = ss.Substring(ss.IndexOf("=") + 1).Replace(" ", String.Empty)
-                                    .Replace(";", String.Empty);
-                            if (newS=="true" || newS =="false")
-                            {
-                                strings2[0] = jKeyWords[2];
                                 foreach (string str in strings2)
                                 {
                                     output = output + str + " ";
@@ -181,25 +230,58 @@ namespace Java_to_C___Convertor
                                 output = output + "@";
                                 output = output.Replace("@", System.Environment.NewLine);
                             }
+                        }
+                        else if (cKeyWords[7] == strings2[0])
+                        {
+                            if (ss.Contains("(") && ss.Contains(")"))
+                            {
+
+                                if (ss.Contains("==") || ss.Contains(">=") || ss.Contains("<=")
+                                    || ss.Contains("<") || ss.Contains(">"))
+                                {
+                                    foreach (string str in strings2)
+                                    {
+                                        output = output + str + " ";
+                                    }
+                                    output = output + "@";
+                                    output = output.Replace("@", System.Environment.NewLine);
+                                }
+                                else
+                                {
+                                    error = "Condition error in the line " + s;
+                                    x++;
+                                }
+
+                            }
                             else
                             {
-                                error = "Type error in the line " + s;
+                                error = "Condition error in the line " + s;
                                 x++;
                             }
+
+                        }
+                        else
+                        {
+                            foreach (string str in strings2)
+                            {
+                                output = output + str + " ";
+                            }
+                            output = output + "@";
+                            output = output.Replace("@", System.Environment.NewLine);
                         }
                     }
                 }
             }
-            if (x > 0)
-            {
-                errorrs = error;
-                return false;
-            }
-            else {
-                return true; }
+                if (x > 0)
+                {
+                    errorrs = error;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            
         }
-
-
     }
-
 }
